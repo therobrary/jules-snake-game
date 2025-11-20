@@ -83,7 +83,6 @@ def test_snake_game():
         print(f"Speed increase verified. New speed: {new_speed}ms")
 
         # --- Test 5: New High Score Entry ---
-        # --- Test 5: New High Score Entry ---
         print("Testing New High Score Entry...")
 
         # Set a score higher than current high score (0)
