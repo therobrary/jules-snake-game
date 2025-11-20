@@ -10,9 +10,21 @@ This game is a standalone web application contained within a single HTML file. T
 
 ### How to Run
 
-1.  **Download**: Clone this repository or download the `index.html` file.
-2.  **Open**: Double-click `index.html` to open it in your default web browser.
+1.  **Download**: Clone this repository.
+2.  **Open**: Double-click `docs/index.html` to open it in your default web browser.
 3.  **Play**: Follow the on-screen instructions to start the game.
+
+## GitHub Pages Deployment
+
+This repository is configured to serve the game using **GitHub Pages** from the `/docs` folder.
+
+1. Go to your repository **Settings**.
+2. Navigate to the **Pages** section.
+3. Under **Build and deployment** > **Source**, select **Deploy from a branch**.
+4. Under **Branch**, select `main` and then select `/docs` folder.
+5. Click **Save**.
+
+The game will be available at `https://<your-username>.github.io/<repo-name>/`.
 
 ### Resetting High Score
 

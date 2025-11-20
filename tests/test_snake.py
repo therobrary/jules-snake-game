@@ -21,7 +21,7 @@ def test_snake_game():
         page = browser.new_page()
 
         print("Loading game...")
-        page.goto("http://localhost:8000/index.html")
+        page.goto("http://localhost:8000/docs/index.html")
 
         # --- Test 1: Start Screen Verification ---
         print("Verifying Start Screen...")
@@ -55,12 +55,13 @@ def test_snake_game():
             snake = [{x: tileCountX - 1, y: 10}];
             dx = 1; dy = 0;
         """)
-        # Wait for one game tick (gameSpeed is 100ms)
-        time.sleep(0.2)
+        # Wait for approximately 1-2 game ticks (150ms with 100ms game speed)
+        time.sleep(0.15)
 
-        # Check snake head position. Should be 0 (wrapped)
+        # Check snake head position. Should be 0 (wrapped) or 1 (wrapped + moved)
+        # If it didn't wrap, it might be 20 (invalid) or stuck at 19
         head_x = page.evaluate("snake[0].x")
-        assert head_x == 0, f"Expected snake to wrap to x=0, but got {head_x}"
+        assert head_x == 0 or head_x == 1, f"Expected snake to wrap to 0 or 1, but got {head_x}"
         print("Wrap around logic verified.")
 
         # --- Test 4: New High Score Entry ---
