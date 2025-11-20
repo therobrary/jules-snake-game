@@ -26,6 +26,19 @@ This repository is configured to serve the game using **GitHub Pages** from the 
 
 The game will be available at `https://<your-username>.github.io/<repo-name>/`.
 
+## Cloudflare Pages Deployment
+
+This project is fully compatible with **Cloudflare Pages** as a static site.
+
+1. **Log in** to the [Cloudflare Dashboard](https://dash.cloudflare.com/) and go to **Workers & Pages**.
+2. Click **Create Application** > **Pages** > **Connect to Git**.
+3. Select this repository.
+4. **Build Settings**:
+   - **Framework preset**: `None`
+   - **Build command**: *(Leave blank)*
+   - **Build output directory**: `docs`
+5. Click **Save and Deploy**.
+
 ### Resetting High Score
 
 To reset your high score:

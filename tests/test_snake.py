@@ -25,7 +25,7 @@ def test_snake_game():
 
         # --- Test 1: Start Screen Verification ---
         print("Verifying Start Screen...")
-        expect(page.get_by_text("SNAKE", exact=True)).to_be_visible()
+        expect(page.get_by_text("Robrary Games: Snake", exact=True)).to_be_visible()
         expect(page.get_by_text("Use W A S D to move")).to_be_visible()
         page.screenshot(path="tests/screenshot_01_start_screen.png")
         print("Start Screen verified and screenshot taken.")
@@ -55,7 +55,7 @@ def test_snake_game():
             snake = [{x: tileCountX - 1, y: 10}];
             dx = 1; dy = 0;
         """)
-        # Wait for approximately 1-2 game ticks (150ms with 100ms game speed)
+        # Wait for roughly one/two game ticks (gameSpeed is 100ms)
         time.sleep(0.15)
 
         # Check snake head position. Should be 0 (wrapped) or 1 (wrapped + moved)
@@ -64,7 +64,25 @@ def test_snake_game():
         assert head_x == 0 or head_x == 1, f"Expected snake to wrap to 0 or 1, but got {head_x}"
         print("Wrap around logic verified.")
 
-        # --- Test 4: New High Score Entry ---
+        # --- Test 4: Speed Increase Verification ---
+        print("Testing Speed Increase...")
+        # Reset state: snake near food
+        page.evaluate("""
+            snake = [{x: 10, y: 10}];
+            food = {x: 11, y: 10};
+            dx = 1; dy = 0;
+            gameSpeed = 100; // Reset speed
+        """)
+
+        # Wait for collision/eating
+        time.sleep(0.3)
+
+        # Check if speed decreased (gameSpeed < 100)
+        new_speed = page.evaluate("gameSpeed")
+        assert new_speed < 100, f"Expected gameSpeed to decrease below 100, but got {new_speed}"
+        print(f"Speed increase verified. New speed: {new_speed}ms")
+
+        # --- Test 5: New High Score Entry ---
         print("Testing New High Score Entry...")
 
         # Set a score higher than current high score (0)
