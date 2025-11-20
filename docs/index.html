@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Grayscale Snake</title>
+    <title>Robrary Games: Snake</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
@@ -141,7 +141,7 @@
     <div id="score-board">Score: <span id="current-score">0</span></div>
 
     <div id="ui-layer">
-        <h1 id="game-title">SNAKE</h1>
+        <h1 id="game-title">Robrary Games: Snake</h1>
         <div id="start-screen-content">
             <p>Use <strong>W A S D</strong> to move</p>
             <div class="controls-info">
@@ -199,7 +199,7 @@
         let highScoreName = localStorage.getItem('snakeHighScoreName') || '';
         let gameState = 'START'; // START, PLAYING, GAMEOVER, INPUT
         let lastTime = 0;
-        const gameSpeed = 100; // ms per frame logic
+        let gameSpeed = 100; // ms per frame logic
         let timeAccumulator = 0;
 
         // Initialize UI
@@ -211,6 +211,13 @@
         window.score = score;
         window.endGame = endGame;
         window.tileCountX = tileCountX;
+        window.gameSpeed = gameSpeed;
+
+        // Sync gameSpeed to window for testing access (since it's a let variable now)
+        Object.defineProperty(window, 'gameSpeed', {
+            get: function() { return gameSpeed; },
+            set: function(val) { gameSpeed = val; }
+        });
 
         // Resize handling
         function resize() {
@@ -260,6 +267,7 @@
                 { x: 8, y: 10 }
             ];
             score = 0;
+            gameSpeed = 100;
             scoreEl.innerText = score;
             placeFood();
             startContent.style.display = 'block';
@@ -312,6 +320,12 @@
             if (head.x === food.x && head.y === food.y) {
                 score += 10;
                 scoreEl.innerText = score;
+
+                // Increase speed slightly (decrease delay)
+                if (gameSpeed > 40) {
+                    gameSpeed -= 2;
+                }
+
                 placeFood();
             } else {
                 snake.pop();
