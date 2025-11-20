@@ -211,7 +211,6 @@
         window.score = score;
         window.endGame = endGame;
         window.tileCountX = tileCountX;
-        window.gameSpeed = gameSpeed;
 
         // Sync gameSpeed to window for testing access (since it's a let variable now)
         Object.defineProperty(window, 'gameSpeed', {
