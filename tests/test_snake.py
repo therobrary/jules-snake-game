@@ -55,7 +55,7 @@ def test_snake_game():
             snake = [{x: tileCountX - 1, y: 10}];
             dx = 1; dy = 0;
         """)
-        # Wait for roughly one/two game ticks (gameSpeed is 100ms)
+        # Wait for approximately 1-2 game ticks (150ms with 100ms game speed)
         time.sleep(0.15)
 
         # Check snake head position. Should be 0 (wrapped) or 1 (wrapped + moved)
