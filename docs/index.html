@@ -596,7 +596,12 @@ const CONFIG = {
         obstacleStartWave: 3,
         obstaclesPerWave: 1,
         specialFoodChance: 0.25
-    }
+    },
+    FOOD_ACCENT_COLORS: [
+        '#ff6b6b', '#ff9f43', '#feca57', '#48dbfb',
+        '#0abde3', '#1dd1a1', '#5f27cd', '#ff6348',
+        '#7bed9f', '#70a1ff', '#ff4757', '#ffa502'
+    ]
 };
 
 const SPECIAL_FOOD = {
@@ -847,6 +852,7 @@ class Game {
         this.specialFoods = [];
         this.obstacles = [];
         this.particles = [];
+        this.accentColorIndex = 0;
 
         this.tileCountX = 0;
         this.tileCountY = 0;
@@ -1180,7 +1186,11 @@ class Game {
             this.audio.powerUp();
         }
 
-        this.spawnParticles(head.x, head.y, foodType.color, 12);
+        const accentColor = foodType.type === 'regular'
+            ? CONFIG.FOOD_ACCENT_COLORS[this.accentColorIndex % CONFIG.FOOD_ACCENT_COLORS.length]
+            : foodType.color;
+        if (foodType.type === 'regular') this.accentColorIndex++;
+        this.spawnParticles(head.x, head.y, accentColor, 12);
         this.showCombo();
         this.updateHUD();
 
